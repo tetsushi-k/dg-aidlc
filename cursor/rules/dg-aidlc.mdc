@@ -1,0 +1,48 @@
+---
+description: "DG-AIDLC (Domain-Guarded AI-DLC) - AI-DLC に DDD の業務境界と TDD の品質ガードを足した開発型のガード規約"
+alwaysApply: true
+---
+
+# DG-AIDLC ガード規約（Domain-Guarded AI-DLC）
+
+このリポジトリは AI-DLC を土台に、**DDD（業務境界）と TDD（品質ガード）で AI の実装を枠に閉じ込める**開発型「DG-AIDLC」で作る。
+`ai-dlc-workflow.mdc` の工程に従いつつ、本ファイルの制約を上乗せする。制約は努力目標ではなくハードルール。
+
+## 型の 7 ステップ
+
+1. Intent & 境界宣言 … `aidlc-docs/inception/intent.md`, `ubiquitous-language.md`
+2. ドメインモデリング（核心判断は人間が確定）… `aidlc-docs/domain/` 配下の集約・境界ドキュメント
+3. 受入例示 … `aidlc-docs/construction/acceptance-criteria.md`
+4. Red（失敗するテスト）… 作品リポの Unit / Feature（または同等）テスト配置
+5. Green（最小実装）… `Domain` / `Application`（または UseCase）/ `Infrastructure` など合意したレイヤ
+6. Refactor & 境界検証 … 依存境界・静的解析ツールをグリーンにする（言語・FW に応じて選定）
+7. ナラティブ化 … `aidlc-docs/decision-log.md`, `README.md`
+
+## 横展開で変えない約束（型の核心）
+
+1. **ドメインの核心判断は人間が確定する**（AI は草案まで）。ユビキタス言語・不変条件・境界の最終決定を AI に丸投げしない。
+2. **受入例示はテストと 1 対 1 対応**させる（`acceptance-criteria.md` の行 = テストの dataset / ケース行）。
+3. **不確実な自動確定はしない**（安全側。取り返しのつかない副作用より、人間確認や検出漏れ許容を優先する方針を Intent で明示する）。
+4. **照会（副作用なし）とコマンド（副作用あり）を分離する**。同じユースケースに混ぜない。
+5. **境界違反はツールで証明する**。口頭の主張で代替しない（例: アーキテクチャテスト、依存ルール、静的解析）。
+
+## レイヤ境界（機械強制の対象）
+
+- **Domain はフレームワーク・ORM・HTTP に依存しない**（純ドメインとしてテスト可能にする）。
+- 依存方向は `Presentation（Http/Console 等） → Application → Domain`、`Infrastructure → Domain`。逆流禁止。
+- 永続化の **interface（ポート）は Domain（または Application の読取ポート）**、実装は `Infrastructure`（依存性逆転）。
+- 集約間は **ID（値オブジェクト）参照**。他集約のオブジェクトを直接保持しない。
+
+言語・FW 固有のパッケージ名やツール名は作品リポの `adapters` メモまたは README に書く。本規約は置き場の原則だけを固定する。
+
+## Never Vibe Code
+
+- 実装の前に必ず「落ちるテスト（Red）」を先に書く。テストなしで振る舞いを足さない。
+- 設計判断が変わるときは、コードと `aidlc-docs/` を**同時に**更新する。
+- 各ステップ末に `aidlc-docs/decision-log.md` へ「AI に任せた / 自分が判断・修正した / 重かった点」を 1〜3 行残す。
+
+## 実行・成果物の置き方
+
+- ビルド・テスト・解析の実行手段は作品リポで決める（Makefile、タスクランナー、CI 等）。代表コマンドを1か所に集約する。
+- 環境固有の使い捨てスクリプトはコミットしない。
+- アプリケーションコードはワークスペース根（または合意した `src/` 等）。設計・判断の記録は `aidlc-docs/` のみ。

@@ -1,0 +1,51 @@
+# DG-AIDLC
+
+**Domain-Guarded AI-DLC** — AI-DLC を土台に、DDD（業務境界）と TDD（品質ガード）で AI の実装を枠に閉じ込める開発型のキットです。
+
+目指す実装形は、よくあるレイヤード／ヘキサゴナル（Domain / Application / Infrastructure）です。新規性はレイヤの発明ではなく、**AI 駆動でもその型と仕様契約を崩しにくくする約束**にあります。
+
+## 含まれるもの
+
+| パス | 内容 |
+|------|------|
+| `cursor/rules/ai-dlc-workflow.mdc` | 上流の AI-DLC ワークフロー |
+| `cursor/rules/dg-aidlc.mdc` | Domain / TDD ガードの上乗せ規約（汎用） |
+| `aidlc-rule-details/` | AI-DLC の工程詳細ルール |
+| `templates/aidlc-docs/` | Intent・用語・集約・受入・判断ログの空テンプレ |
+| `adapters/` | スタック別の置き方メモ（任意） |
+
+## 作品リポへの入れ方
+
+1. このキットから次をコピーする（または submodule / subtree）。
+   - `cursor/rules/*.mdc` → 作品リポの `.cursor/rules/`
+   - `aidlc-rule-details/` → 作品リポの `.aidlc-rule-details/`
+   - `templates/aidlc-docs/` → 作品リポの `aidlc-docs/`（初期ドキュメント）
+2. 使う言語・FW に応じて `adapters/` を参照し、境界検証ツールとディレクトリ名を作品 README に1節書く。
+3. `aidlc-docs/inception/intent.md` で題材の核心判断（人間が決めること）を書いてから実装に入る。
+
+`ai-dlc-workflow.mdc` は `.aidlc-rule-details/`（またはドキュメント記載の代替パス）を読みにいく前提です。コピー先のパスを揃えてください。
+
+## 核となる約束（要約）
+
+1. ドメインの核心判断は人間が確定する（AI は草案まで）
+2. 受入例示とテストを 1 対 1 対応させる
+3. 不確実な自動確定はしない（安全側の方針を Intent で明示）
+4. 照会（副作用なし）とコマンド（副作用あり）を分離する
+5. 境界違反はツールで証明する
+
+詳細は `cursor/rules/dg-aidlc.mdc` を正とする。
+
+## 7 ステップ
+
+1. Intent & 境界宣言
+2. ドメインモデリング（核心は人間が確定）
+3. 受入例示
+4. Red（失敗するテスト）
+5. Green（最小実装）
+6. Refactor & 境界検証
+7. ナラティブ化（decision-log / README）
+
+## ライセンス
+
+ルール詳細（`aidlc-rule-details/` および `ai-dlc-workflow.mdc`）の由来・ライセンスは各ファイルおよび上流 AI-DLC の扱いに従う。  
+DG-AIDLC 上乗せ（`dg-aidlc.mdc`・本 README・`templates/`・`adapters/`）は、作品への再利用を前提とする。
