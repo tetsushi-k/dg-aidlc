@@ -47,6 +47,15 @@
 6. Refactor & 境界検証
 7. ナラティブ化（decision-log / README）
 
+## 適用例（ポートフォリオ）
+
+| リポ | 型 | 技術 |
+|------|----|------|
+| [salon-booking-ddd](https://github.com/tetsushi-k/salon-booking-ddd) | Greenfield | Java / Spring / ArchUnit |
+| [ticket-hold-legacy-replace](https://github.com/tetsushi-k/ticket-hold-legacy-replace) | Brownfield | PHP / Deptrac |
+
+プロフィール全体の読み方は [tetsushi-k](https://github.com/tetsushi-k) を参照。
+
 ## ライセンス
 
 ルール詳細（`aidlc-rule-details/` および `ai-dlc-workflow.mdc`）の由来・ライセンスは各ファイルおよび上流 AI-DLC の扱いに従う。  
