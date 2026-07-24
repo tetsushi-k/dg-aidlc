@@ -10,7 +10,7 @@
 |------|------|
 | `cursor/rules/ai-dlc-workflow.mdc` | 上流の AI-DLC ワークフロー |
 | `cursor/rules/dg-aidlc.mdc` | Domain / TDD ガードの上乗せ規約（汎用） |
-| `aidlc-rule-details/` | AI-DLC の工程詳細ルール |
+| `aidlc-rule-details/` | AI-DLC の工程詳細ルール（日本語ドキュメント指針含む） |
 | `templates/aidlc-docs/` | Intent・用語・集約・受入・判断ログの空テンプレ |
 | `adapters/` | スタック別の置き方メモ（任意） |
 
